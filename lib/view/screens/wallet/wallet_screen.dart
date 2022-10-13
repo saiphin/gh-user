@@ -376,7 +376,8 @@ class WalletShimmer extends StatelessWidget {
           child: Shimmer(
             duration: Duration(seconds: 2),
             enabled: walletController.transactionList == null,
-            child: Column(
+            child: SingleChildScrollView(
+                child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -422,7 +423,7 @@ class WalletShimmer extends StatelessWidget {
                         top: Dimensions.PADDING_SIZE_LARGE),
                     child: Divider(color: Theme.of(context).disabledColor)),
               ],
-            ),
+            )),
           ),
         );
       },

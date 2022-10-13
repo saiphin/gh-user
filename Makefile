@@ -1,5 +1,7 @@
-ios:
+app-ios:
 	open -a Simulator
+app-android:
+	emulator -avd phone
 build-apk:
 	flutter build apk --split-per-abi
 clean:
@@ -10,3 +12,8 @@ build-release:
 	flutter build appbundle --release
 run-web:
 	flutter run -d chrome --web-renderer html
+
+git:
+	git add .
+	git commit -m "$m"
+	git push

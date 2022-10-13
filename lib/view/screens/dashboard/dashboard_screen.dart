@@ -113,27 +113,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
         return Scaffold(
           key: _scaffoldKey,
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ResponsiveHelper.isDesktop(context)
-                ? null
-                : (orderController.showBottomSheet &&
-                        orderController.runningOrderModel != null &&
-                        orderController.runningOrderModel.orders.isNotEmpty)
-                    ? SizedBox()
-                    : FloatingActionButton(
-                        elevation: 5,
-                        backgroundColor: _pageIndex == 2
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).cardColor,
-                        onPressed: () => _setPage(2),
-                        child: CartWidget(
-                            color: _pageIndex == 2
-                                ? Theme.of(context).cardColor
-                                : Theme.of(context).disabledColor,
-                            size: 30),
-                      ),
-          ),
+          floatingActionButton: ResponsiveHelper.isDesktop(context)
+              ? null
+              : (orderController.showBottomSheet &&
+                      orderController.runningOrderModel != null &&
+                      orderController.runningOrderModel.orders.isNotEmpty)
+                  ? SizedBox()
+                  : FloatingActionButton(
+                      elevation: 5,
+                      backgroundColor: _pageIndex == 2
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).cardColor,
+                      onPressed: () => _setPage(2),
+                      child: CartWidget(
+                          color: _pageIndex == 2
+                              ? Theme.of(context).cardColor
+                              : Theme.of(context).disabledColor,
+                          size: 30),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100)),
+                    ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: ResponsiveHelper.isDesktop(context)
