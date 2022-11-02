@@ -1,7 +1,7 @@
-import 'package:sixam_mart/data/api/api_checker.dart';
-import 'package:sixam_mart/data/model/response/notification_model.dart';
-import 'package:sixam_mart/data/repository/notification_repo.dart';
-import 'package:sixam_mart/helper/date_converter.dart';
+import 'package:givepo/data/api/api_checker.dart';
+import 'package:givepo/data/model/response/notification_model.dart';
+import 'package:givepo/data/repository/notification_repo.dart';
+import 'package:givepo/helper/date_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,17 +15,20 @@ class NotificationController extends GetxController implements GetxService {
   bool get hasNotification => _hasNotification;
 
   Future<int> getNotificationList(bool reload) async {
-    if(_notificationList == null || reload) {
+    if (_notificationList == null || reload) {
       Response response = await notificationRepo.getNotificationList();
       if (response.statusCode == 200) {
         _notificationList = [];
-        response.body.forEach((notification) => _notificationList.add(NotificationModel.fromJson(notification)));
+        response.body.forEach((notification) =>
+            _notificationList.add(NotificationModel.fromJson(notification)));
         _notificationList.sort((a, b) {
-          return DateConverter.isoStringToLocalDate(a.updatedAt).compareTo(DateConverter.isoStringToLocalDate(b.updatedAt));
+          return DateConverter.isoStringToLocalDate(a.updatedAt)
+              .compareTo(DateConverter.isoStringToLocalDate(b.updatedAt));
         });
         Iterable iterable = _notificationList.reversed;
         _notificationList = iterable.toList();
-        _hasNotification = _notificationList.length != getSeenNotificationCount();
+        _hasNotification =
+            _notificationList.length != getSeenNotificationCount();
       } else {
         ApiChecker.checkApi(response);
       }
@@ -45,5 +48,4 @@ class NotificationController extends GetxController implements GetxService {
   void clearNotification() {
     _notificationList = null;
   }
-
 }

@@ -1,4 +1,4 @@
-import 'package:sixam_mart/data/model/response/conversation_model.dart';
+import 'package:givepo/data/model/response/conversation_model.dart';
 
 class UserInfoModel {
   int id;
@@ -17,18 +17,18 @@ class UserInfoModel {
 
   UserInfoModel(
       {this.id,
-        this.fName,
-        this.lName,
-        this.email,
-        this.image,
-        this.phone,
-        this.password,
-        this.orderCount,
-        this.memberSinceDays,
-        this.walletBalance,
-        this.loyaltyPoint,
-        this.refCode,
-        this.userInfo});
+      this.fName,
+      this.lName,
+      this.email,
+      this.image,
+      this.phone,
+      this.password,
+      this.orderCount,
+      this.memberSinceDays,
+      this.walletBalance,
+      this.loyaltyPoint,
+      this.refCode,
+      this.userInfo});
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -43,7 +43,8 @@ class UserInfoModel {
     walletBalance = json['wallet_balance'].toDouble();
     loyaltyPoint = json['loyalty_point'];
     refCode = json['ref_code'];
-    userInfo = json['userinfo'] != null ? new User.fromJson(json['userinfo']) : null;
+    userInfo =
+        json['userinfo'] != null ? new User.fromJson(json['userinfo']) : null;
   }
 
   Map<String, dynamic> toJson() {

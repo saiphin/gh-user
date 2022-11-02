@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/controller/user_controller.dart';
-import 'package:sixam_mart/data/api/api_checker.dart';
-import 'package:sixam_mart/data/model/response/wallet_model.dart';
-import 'package:sixam_mart/data/repository/wallet_repo.dart';
-import 'package:sixam_mart/view/base/custom_snackbar.dart';
+import 'package:givepo/controller/user_controller.dart';
+import 'package:givepo/data/api/api_checker.dart';
+import 'package:givepo/data/model/response/wallet_model.dart';
+import 'package:givepo/data/repository/wallet_repo.dart';
+import 'package:givepo/view/base/custom_snackbar.dart';
 
-class WalletController extends GetxController implements GetxService{
+class WalletController extends GetxController implements GetxService {
   final WalletRepo walletRepo;
   WalletController({@required this.walletRepo});
 
@@ -24,27 +24,28 @@ class WalletController extends GetxController implements GetxService{
   void setOffset(int offset) {
     _offset = offset;
   }
+
   void showBottomLoader() {
     _isLoading = true;
     update();
   }
 
-  Future<void> getWalletTransactionList(String offset, bool reload, bool isWallet) async {
-    if(offset == '1' || reload) {
+  Future<void> getWalletTransactionList(
+      String offset, bool reload, bool isWallet) async {
+    if (offset == '1' || reload) {
       _offsetList = [];
       _offset = 1;
       _transactionList = null;
-      if(reload) {
+      if (reload) {
         update();
       }
-
     }
     if (!_offsetList.contains(offset)) {
       _offsetList.add(offset);
       Response response;
-      if(isWallet){
+      if (isWallet) {
         response = await walletRepo.getWalletTransactionList(offset);
-      }else{
+      } else {
         response = await walletRepo.getLoyaltyTransactionList(offset);
       }
 
@@ -61,7 +62,7 @@ class WalletController extends GetxController implements GetxService{
         ApiChecker.checkApi(response);
       }
     } else {
-      if(isLoading) {
+      if (isLoading) {
         _isLoading = false;
         update();
       }
@@ -76,14 +77,12 @@ class WalletController extends GetxController implements GetxService{
       Get.back();
       getWalletTransactionList('1', true, fromWallet);
       Get.find<UserController>().getUserInfo();
-      showCustomSnackBar('converted_successfully_transfer_to_your_wallet'.tr, isError: false);
+      showCustomSnackBar('converted_successfully_transfer_to_your_wallet'.tr,
+          isError: false);
     } else {
       ApiChecker.checkApi(response);
     }
     _isLoading = false;
     update();
   }
-
-
-
 }

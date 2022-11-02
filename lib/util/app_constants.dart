@@ -1,6 +1,6 @@
-import 'package:sixam_mart/data/model/response/choose_us_model.dart';
-import 'package:sixam_mart/data/model/response/language_model.dart';
-import 'package:sixam_mart/util/images.dart';
+import 'package:givepo/data/model/response/choose_us_model.dart';
+import 'package:givepo/data/model/response/language_model.dart';
+import 'package:givepo/util/images.dart';
 
 class AppConstants {
   static const String APP_NAME = 'GiveHub';

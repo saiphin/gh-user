@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/controller/splash_controller.dart';
-import 'package:sixam_mart/data/model/response/config_model.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/view/base/custom_snackbar.dart';
-import 'package:sixam_mart/view/base/text_hover.dart';
+import 'package:givepo/controller/splash_controller.dart';
+import 'package:givepo/data/model/response/config_model.dart';
+import 'package:givepo/helper/responsive_helper.dart';
+import 'package:givepo/helper/route_helper.dart';
+import 'package:givepo/util/app_constants.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/util/images.dart';
+import 'package:givepo/util/styles.dart';
+import 'package:givepo/view/base/custom_snackbar.dart';
+import 'package:givepo/view/base/text_hover.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class FooterView extends StatefulWidget {

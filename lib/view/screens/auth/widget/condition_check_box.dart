@@ -1,7 +1,7 @@
-import 'package:sixam_mart/controller/auth_controller.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/styles.dart';
+import 'package:givepo/controller/auth_controller.dart';
+import 'package:givepo/helper/route_helper.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,10 +19,12 @@ class ConditionCheckBox extends StatelessWidget {
       ),
       Text('i_agree_with'.tr, style: robotoRegular),
       InkWell(
-        onTap: () => Get.toNamed(RouteHelper.getHtmlRoute('terms-and-condition')),
+        onTap: () =>
+            Get.toNamed(RouteHelper.getHtmlRoute('terms-and-condition')),
         child: Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-          child: Text('terms_conditions'.tr, style: robotoMedium.copyWith(color: Colors.blue)),
+          child: Text('terms_conditions'.tr,
+              style: robotoMedium.copyWith(color: Colors.blue)),
         ),
       ),
     ]);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/controller/splash_controller.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/view/base/custom_image.dart';
+import 'package:givepo/controller/splash_controller.dart';
+import 'package:givepo/helper/responsive_helper.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/view/base/custom_image.dart';
 
 class CustomNavigationDrawer extends StatefulWidget {
   final Color selectedColor;
@@ -12,17 +12,23 @@ class CustomNavigationDrawer extends StatefulWidget {
   final TextStyle selectedTextStyle;
   final Widget child;
   CustomNavigationDrawer({
-    this.selectedColor = const Color(0xFF4AC8EA), this.backgroundColor,
+    this.selectedColor = const Color(0xFF4AC8EA),
+    this.backgroundColor,
     @required this.child,
-    this.defaultTextStyle = const TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w600),
-    this.selectedTextStyle = const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+    this.defaultTextStyle = const TextStyle(
+        color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w600),
+    this.selectedTextStyle = const TextStyle(
+        color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
   });
 
   @override
   CustomNavigationDrawerState createState() {
     return new CustomNavigationDrawerState(
-      selectedColor: selectedColor, backgroundColor: backgroundColor,
-      defaultTextStyle: defaultTextStyle, selectedTextStyle: selectedTextStyle, child: child,
+      selectedColor: selectedColor,
+      backgroundColor: backgroundColor,
+      defaultTextStyle: defaultTextStyle,
+      selectedTextStyle: selectedTextStyle,
+      child: child,
     );
   }
 }
@@ -35,8 +41,11 @@ class CustomNavigationDrawerState extends State<CustomNavigationDrawer>
   final TextStyle selectedTextStyle;
   final Widget child;
   CustomNavigationDrawerState({
-    @required this.selectedColor, @required this.backgroundColor,
-    @required this.selectedTextStyle, @required this.defaultTextStyle, @required this.child,
+    @required this.selectedColor,
+    @required this.backgroundColor,
+    @required this.selectedTextStyle,
+    @required this.defaultTextStyle,
+    @required this.child,
   });
 
   double maxWidth = 200;
@@ -49,12 +58,14 @@ class CustomNavigationDrawerState extends State<CustomNavigationDrawer>
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 300));
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     _animationController.forward();
     widthAnimation = Tween<double>(begin: maxWidth, end: minWidth)
         .animate(_animationController);
-    if(Get.find<SplashController>().moduleList == null && !mounted ? ResponsiveHelper.isDesktop(context) : true) {
+    if (Get.find<SplashController>().moduleList == null && !mounted
+        ? ResponsiveHelper.isDesktop(context)
+        : true) {
       Get.find<SplashController>().getModules();
     }
   }
@@ -64,18 +75,23 @@ class CustomNavigationDrawerState extends State<CustomNavigationDrawer>
     return GetBuilder<SplashController>(builder: (splashController) {
       return Stack(children: [
         child,
-        splashController.moduleList != null ? Positioned(
-          top: 100, right: 0,
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, widget) => getWidget(context, widget, backgroundColor, splashController),
-          ),
-        ) : SizedBox(),
+        splashController.moduleList != null
+            ? Positioned(
+                top: 100,
+                right: 0,
+                child: AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, widget) => getWidget(
+                      context, widget, backgroundColor, splashController),
+                ),
+              )
+            : SizedBox(),
       ]);
     });
   }
 
-  Widget getWidget(context, widget, Color backgroundColor, SplashController splashController) {
+  Widget getWidget(context, widget, Color backgroundColor,
+      SplashController splashController) {
     return MouseRegion(
       onEnter: (event) {
         setState(() {
@@ -95,10 +111,14 @@ class CustomNavigationDrawerState extends State<CustomNavigationDrawer>
         child: Container(
           width: widthAnimation.value,
           decoration: BoxDecoration(
-            color: backgroundColor == null ? Theme.of(context).primaryColor : backgroundColor,
-            borderRadius: BorderRadius.horizontal(left: Radius.circular(Dimensions.RADIUS_DEFAULT)),
+            color: backgroundColor == null
+                ? Theme.of(context).primaryColor
+                : backgroundColor,
+            borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(Dimensions.RADIUS_DEFAULT)),
           ),
-          padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
+          padding:
+              EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -106,7 +126,8 @@ class CustomNavigationDrawerState extends State<CustomNavigationDrawer>
                 separatorBuilder: (context, counter) {
                   return Divider(height: 12.0);
                 },
-                shrinkWrap: true, physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, counter) {
                   return CollapsingListTile(
                     onTap: () {},
@@ -160,13 +181,13 @@ class CollapsingListTile extends StatefulWidget {
 
   CollapsingListTile(
       {@required this.title,
-        @required this.icon,
-        @required this.selectedColor,
-        @required this.animationController,
-        @required this.defaultTextStyle,
-        @required this.selectedTextStyle,
-        this.isSelected = false,
-        this.onTap});
+      @required this.icon,
+      @required this.selectedColor,
+      @required this.animationController,
+      @required this.defaultTextStyle,
+      @required this.selectedTextStyle,
+      this.isSelected = false,
+      this.onTap});
 
   @override
   _CollapsingListTileState createState() => _CollapsingListTileState();
@@ -196,14 +217,16 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
               : Colors.transparent,
         ),
         width: widthAnimation.value,
-        margin: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+        margin: EdgeInsets.symmetric(
+            horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
         padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
         child: Row(
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
               child: CustomImage(
-                image: '${Get.find<SplashController>().configModel.baseUrls.moduleImageUrl}/${widget.icon}',
+                image:
+                    '${Get.find<SplashController>().configModel.baseUrls.moduleImageUrl}/${widget.icon}',
                 // color: widget.isSelected ? widget.selectedColor : Colors.white30,
                 width: 25, height: 25,
               ),
@@ -211,7 +234,9 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
             SizedBox(width: sizedBoxAnimation.value),
             (widthAnimation.value >= 190)
                 ? Text(widget.title,
-                style: widget.isSelected ? widget.selectedTextStyle : widget.defaultTextStyle)
+                    style: widget.isSelected
+                        ? widget.selectedTextStyle
+                        : widget.defaultTextStyle)
                 : Container()
           ],
         ),

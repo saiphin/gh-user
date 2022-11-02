@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:sixam_mart/controller/location_controller.dart';
-import 'package:sixam_mart/controller/splash_controller.dart';
-import 'package:sixam_mart/data/api/api_client.dart';
-import 'package:sixam_mart/data/model/response/address_model.dart';
-import 'package:sixam_mart/data/model/response/language_model.dart';
-import 'package:sixam_mart/util/app_constants.dart';
-import 'package:sixam_mart/view/screens/home/home_screen.dart';
+import 'package:givepo/controller/location_controller.dart';
+import 'package:givepo/controller/splash_controller.dart';
+import 'package:givepo/data/api/api_client.dart';
+import 'package:givepo/data/model/response/address_model.dart';
+import 'package:givepo/data/model/response/language_model.dart';
+import 'package:givepo/util/app_constants.dart';
+import 'package:givepo/view/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

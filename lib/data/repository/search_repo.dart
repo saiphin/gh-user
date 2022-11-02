@@ -1,5 +1,5 @@
-import 'package:sixam_mart/data/api/api_client.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:givepo/data/api/api_client.dart';
+import 'package:givepo/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,7 +10,8 @@ class SearchRepo {
   SearchRepo({@required this.apiClient, @required this.sharedPreferences});
 
   Future<Response> getSearchData(String query, bool isStore) async {
-    return await apiClient.getData('${AppConstants.SEARCH_URI}${isStore ? 'stores' : 'items'}/search?name=$query&offset=1&limit=50');
+    return await apiClient.getData(
+        '${AppConstants.SEARCH_URI}${isStore ? 'stores' : 'items'}/search?name=$query&offset=1&limit=50');
   }
 
   Future<Response> getSuggestedItems() async {
@@ -18,7 +19,8 @@ class SearchRepo {
   }
 
   Future<bool> saveSearchHistory(List<String> searchHistories) async {
-    return await sharedPreferences.setStringList(AppConstants.SEARCH_HISTORY, searchHistories);
+    return await sharedPreferences.setStringList(
+        AppConstants.SEARCH_HISTORY, searchHistories);
   }
 
   List<String> getSearchAddress() {

@@ -1,7 +1,7 @@
-import 'package:sixam_mart/controller/wishlist_controller.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/view/base/footer_view.dart';
-import 'package:sixam_mart/view/base/item_view.dart';
+import 'package:givepo/controller/wishlist_controller.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/view/base/footer_view.dart';
+import 'package:givepo/view/base/item_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,8 +24,11 @@ class FavItemView extends StatelessWidget {
               child: Container(
                 width: Dimensions.WEB_MAX_WIDTH,
                 child: ItemsView(
-                  isStore: isStore, items: wishController.wishItemList, stores: wishController.wishStoreList,
-                  noDataText: 'no_wish_data_found'.tr, isFeatured: true,
+                  isStore: isStore,
+                  items: wishController.wishItemList,
+                  stores: wishController.wishStoreList,
+                  noDataText: 'no_wish_data_found'.tr,
+                  isFeatured: true,
                 ),
               ),
             ),

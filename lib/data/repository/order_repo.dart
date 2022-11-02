@@ -1,7 +1,7 @@
 import 'package:image_picker/image_picker.dart';
-import 'package:sixam_mart/data/api/api_client.dart';
-import 'package:sixam_mart/data/model/body/place_order_body.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:givepo/data/api/api_client.dart';
+import 'package:givepo/data/model/body/place_order_body.dart';
+import 'package:givepo/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
@@ -14,11 +14,13 @@ class OrderRepo {
   OrderRepo({@required this.apiClient, @required this.sharedPreferences});
 
   Future<Response> getRunningOrderList(int offset, bool fromDashBoard) async {
-    return await apiClient.getData('${AppConstants.RUNNING_ORDER_LIST_URI}?offset=$offset&limit=${fromDashBoard ? 20 : 10}');
+    return await apiClient.getData(
+        '${AppConstants.RUNNING_ORDER_LIST_URI}?offset=$offset&limit=${fromDashBoard ? 20 : 10}');
   }
 
   Future<Response> getHistoryOrderList(int offset) async {
-    return await apiClient.getData('${AppConstants.HISTORY_ORDER_LIST_URI}?offset=$offset&limit=10');
+    return await apiClient.getData(
+        '${AppConstants.HISTORY_ORDER_LIST_URI}?offset=$offset&limit=10');
   }
 
   Future<Response> getOrderDetails(String orderID) async {
@@ -26,16 +28,19 @@ class OrderRepo {
   }
 
   Future<Response> cancelOrder(String orderID) async {
-    return await apiClient.postData(AppConstants.ORDER_CANCEL_URI, {'_method': 'put', 'order_id': orderID});
+    return await apiClient.postData(
+        AppConstants.ORDER_CANCEL_URI, {'_method': 'put', 'order_id': orderID});
   }
 
   Future<Response> trackOrder(String orderID) async {
     return await apiClient.getData('${AppConstants.TRACK_URI}$orderID');
   }
 
-  Future<Response> placeOrder(PlaceOrderBody orderBody, XFile orderAttachment) async {
+  Future<Response> placeOrder(
+      PlaceOrderBody orderBody, XFile orderAttachment) async {
     return await apiClient.postMultipartData(
-      AppConstants.PLACE_ORDER_URI, orderBody.toJson(),
+      AppConstants.PLACE_ORDER_URI,
+      orderBody.toJson(),
       [MultipartBody('order_attachment', orderAttachment)],
     );
   }
@@ -45,13 +50,14 @@ class OrderRepo {
   }
 
   Future<Response> switchToCOD(String orderID) async {
-    return await apiClient.postData(AppConstants.COD_SWITCH_URL, {'_method': 'put', 'order_id': orderID});
+    return await apiClient.postData(
+        AppConstants.COD_SWITCH_URL, {'_method': 'put', 'order_id': orderID});
   }
 
-  Future<Response> getDistanceInMeter(LatLng originLatLng, LatLng destinationLatLng) async {
+  Future<Response> getDistanceInMeter(
+      LatLng originLatLng, LatLng destinationLatLng) async {
     return await apiClient.getData('${AppConstants.DISTANCE_MATRIX_URI}'
         '?origin_lat=${originLatLng.latitude}&origin_lng=${originLatLng.longitude}'
         '&destination_lat=${destinationLatLng.latitude}&destination_lng=${destinationLatLng.longitude}');
   }
-
 }

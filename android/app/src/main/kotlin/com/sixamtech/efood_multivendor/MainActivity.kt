@@ -1,4 +1,4 @@
-package com.sixamtech.sixam_mart
+package com.sixamtech.givepo
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:sixam_mart/controller/location_controller.dart';
-import 'package:sixam_mart/controller/splash_controller.dart';
-import 'package:sixam_mart/data/api/api_client.dart';
-import 'package:sixam_mart/data/model/body/delivery_man_body.dart';
-import 'package:sixam_mart/data/model/body/store_body.dart';
-import 'package:sixam_mart/data/model/body/signup_body.dart';
-import 'package:sixam_mart/data/model/body/social_log_in_body.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:givepo/controller/location_controller.dart';
+import 'package:givepo/controller/splash_controller.dart';
+import 'package:givepo/data/api/api_client.dart';
+import 'package:givepo/data/model/body/delivery_man_body.dart';
+import 'package:givepo/data/model/body/store_body.dart';
+import 'package:givepo/data/model/body/signup_body.dart';
+import 'package:givepo/data/model/body/social_log_in_body.dart';
+import 'package:givepo/util/app_constants.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -20,75 +20,99 @@ class AuthRepo {
   AuthRepo({@required this.apiClient, @required this.sharedPreferences});
 
   Future<Response> registration(SignUpBody signUpBody) async {
-    return await apiClient.postData(AppConstants.REGISTER_URI, signUpBody.toJson());
+    return await apiClient.postData(
+        AppConstants.REGISTER_URI, signUpBody.toJson());
   }
 
   Future<Response> login({String phone, String password}) async {
-    return await apiClient.postData(AppConstants.LOGIN_URI, {"phone": phone, "password": password});
+    return await apiClient.postData(
+        AppConstants.LOGIN_URI, {"phone": phone, "password": password});
   }
 
   Future<Response> loginWithSocialMedia(String email) async {
-    return await apiClient.postData(AppConstants.SOCIAL_LOGIN_URL, {"email": email});
+    return await apiClient
+        .postData(AppConstants.SOCIAL_LOGIN_URL, {"email": email});
   }
 
-  Future<Response> registerWithSocialMedia(SocialLogInBody socialLogInBody) async {
-    return await apiClient.postData(AppConstants.SOCIAL_REGISTER_URL, socialLogInBody.toJson());
+  Future<Response> registerWithSocialMedia(
+      SocialLogInBody socialLogInBody) async {
+    return await apiClient.postData(
+        AppConstants.SOCIAL_REGISTER_URL, socialLogInBody.toJson());
   }
 
   Future<Response> updateToken() async {
     String _deviceToken;
     if (GetPlatform.isIOS && !GetPlatform.isWeb) {
-      FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(alert: true, badge: true, sound: true);
-      NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
-        alert: true, announcement: false, badge: true, carPlay: false,
-        criticalAlert: false, provisional: false, sound: true,
+      FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+          alert: true, badge: true, sound: true);
+      NotificationSettings settings =
+          await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
       );
-      if(settings.authorizationStatus == AuthorizationStatus.authorized) {
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
         _deviceToken = await _saveDeviceToken();
       }
-    }else {
+    } else {
       _deviceToken = await _saveDeviceToken();
     }
-    if(!GetPlatform.isWeb) {
+    if (!GetPlatform.isWeb) {
       FirebaseMessaging.instance.subscribeToTopic(AppConstants.TOPIC);
     }
-    return await apiClient.postData(AppConstants.TOKEN_URI, {"_method": "put", "cm_firebase_token": _deviceToken});
+    return await apiClient.postData(AppConstants.TOKEN_URI,
+        {"_method": "put", "cm_firebase_token": _deviceToken});
   }
 
   Future<String> _saveDeviceToken() async {
     String _deviceToken = '@';
-    if(!GetPlatform.isWeb) {
+    if (!GetPlatform.isWeb) {
       try {
         _deviceToken = await FirebaseMessaging.instance.getToken();
-      }catch(e) {}
+      } catch (e) {}
     }
     if (_deviceToken != null) {
-      print('--------Device Token---------- '+_deviceToken);
+      print('--------Device Token---------- ' + _deviceToken);
     }
     return _deviceToken;
   }
 
   Future<Response> forgetPassword(String phone) async {
-    return await apiClient.postData(AppConstants.FORGET_PASSWORD_URI, {"phone": phone});
+    return await apiClient
+        .postData(AppConstants.FORGET_PASSWORD_URI, {"phone": phone});
   }
 
   Future<Response> verifyToken(String phone, String token) async {
-    return await apiClient.postData(AppConstants.VERIFY_TOKEN_URI, {"phone": phone, "reset_token": token});
+    return await apiClient.postData(
+        AppConstants.VERIFY_TOKEN_URI, {"phone": phone, "reset_token": token});
   }
 
-  Future<Response> resetPassword(String resetToken, String number, String password, String confirmPassword) async {
+  Future<Response> resetPassword(String resetToken, String number,
+      String password, String confirmPassword) async {
     return await apiClient.postData(
       AppConstants.RESET_PASSWORD_URI,
-      {"_method": "put", "reset_token": resetToken, "phone": number, "password": password, "confirm_password": confirmPassword},
+      {
+        "_method": "put",
+        "reset_token": resetToken,
+        "phone": number,
+        "password": password,
+        "confirm_password": confirmPassword
+      },
     );
   }
 
   Future<Response> checkEmail(String email) async {
-    return await apiClient.postData(AppConstants.CHECK_EMAIL_URI, {"email": email});
+    return await apiClient
+        .postData(AppConstants.CHECK_EMAIL_URI, {"email": email});
   }
 
   Future<Response> verifyEmail(String email, String token) async {
-    return await apiClient.postData(AppConstants.VERIFY_EMAIL_URI, {"email": email, "token": token});
+    return await apiClient.postData(
+        AppConstants.VERIFY_EMAIL_URI, {"email": email, "token": token});
   }
 
   Future<Response> updateZone() async {
@@ -96,15 +120,20 @@ class AuthRepo {
   }
 
   Future<Response> verifyPhone(String phone, String otp) async {
-    return await apiClient.postData(AppConstants.VERIFY_PHONE_URI, {"phone": phone, "otp": otp});
+    return await apiClient
+        .postData(AppConstants.VERIFY_PHONE_URI, {"phone": phone, "otp": otp});
   }
 
   // for  user token
   Future<bool> saveUserToken(String token) async {
     apiClient.token = token;
     apiClient.updateHeader(
-      token, null, sharedPreferences.getString(AppConstants.LANGUAGE_CODE),
-      Get.find<SplashController>().module != null ? Get.find<SplashController>().module.id : null,
+      token,
+      null,
+      sharedPreferences.getString(AppConstants.LANGUAGE_CODE),
+      Get.find<SplashController>().module != null
+          ? Get.find<SplashController>().module.id
+          : null,
     );
     return await sharedPreferences.setString(AppConstants.TOKEN, token);
   }
@@ -118,9 +147,10 @@ class AuthRepo {
   }
 
   bool clearSharedData() {
-    if(!GetPlatform.isWeb) {
+    if (!GetPlatform.isWeb) {
       FirebaseMessaging.instance.unsubscribeFromTopic(AppConstants.TOPIC);
-      apiClient.postData(AppConstants.TOKEN_URI, {"_method": "put", "cm_firebase_token": '@'});
+      apiClient.postData(
+          AppConstants.TOKEN_URI, {"_method": "put", "cm_firebase_token": '@'});
     }
     sharedPreferences.remove(AppConstants.TOKEN);
     sharedPreferences.setStringList(AppConstants.CART_LIST, []);
@@ -130,17 +160,19 @@ class AuthRepo {
     return true;
   }
 
-  bool clearSharedAddress(){
+  bool clearSharedAddress() {
     sharedPreferences.remove(AppConstants.USER_ADDRESS);
     return true;
   }
 
   // for  Remember Email
-  Future<void> saveUserNumberAndPassword(String number, String password, String countryCode) async {
+  Future<void> saveUserNumberAndPassword(
+      String number, String password, String countryCode) async {
     try {
       await sharedPreferences.setString(AppConstants.USER_PASSWORD, password);
       await sharedPreferences.setString(AppConstants.USER_NUMBER, number);
-      await sharedPreferences.setString(AppConstants.USER_COUNTRY_CODE, countryCode);
+      await sharedPreferences.setString(
+          AppConstants.USER_COUNTRY_CODE, countryCode);
     } catch (e) {
       throw e;
     }
@@ -163,13 +195,14 @@ class AuthRepo {
   }
 
   void setNotificationActive(bool isActive) {
-    if(isActive) {
+    if (isActive) {
       updateToken();
-    }else {
-      if(!GetPlatform.isWeb) {
+    } else {
+      if (!GetPlatform.isWeb) {
         FirebaseMessaging.instance.unsubscribeFromTopic(AppConstants.TOPIC);
-        if(isLoggedIn()) {
-          FirebaseMessaging.instance.unsubscribeFromTopic('zone_${Get.find<LocationController>().getUserAddress().zoneId}_customer');
+        if (isLoggedIn()) {
+          FirebaseMessaging.instance.unsubscribeFromTopic(
+              'zone_${Get.find<LocationController>().getUserAddress().zoneId}_customer');
         }
       }
     }
@@ -186,13 +219,18 @@ class AuthRepo {
     return await apiClient.getData(AppConstants.ZONE_LIST_URI);
   }
 
-  Future<Response> registerStore(StoreBody store, XFile logo, XFile cover) async {
+  Future<Response> registerStore(
+      StoreBody store, XFile logo, XFile cover) async {
     return apiClient.postMultipartData(
-      AppConstants.STORE_REGISTER_URI, store.toJson(), [MultipartBody('logo', logo), MultipartBody('cover_photo', cover)],
+      AppConstants.STORE_REGISTER_URI,
+      store.toJson(),
+      [MultipartBody('logo', logo), MultipartBody('cover_photo', cover)],
     );
   }
 
-  Future<Response> registerDeliveryMan(DeliveryManBody deliveryManBody, List<MultipartBody> multiParts) async {
-    return apiClient.postMultipartData(AppConstants.DM_REGISTER_URI, deliveryManBody.toJson(), multiParts);
+  Future<Response> registerDeliveryMan(
+      DeliveryManBody deliveryManBody, List<MultipartBody> multiParts) async {
+    return apiClient.postMultipartData(
+        AppConstants.DM_REGISTER_URI, deliveryManBody.toJson(), multiParts);
   }
 }

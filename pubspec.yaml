@@ -1,6 +1,6 @@
-name: sixam_mart
+name: givepo
 description: A Multi-vendor Food. Grocery, eCommerce, Pharmacy & Parcel service.
-publish_to: 'none' #
+publish_to: "none" #
 version: 1.0.0+1
 
 environment:
@@ -41,8 +41,8 @@ dependencies:
   phone_number: ^0.12.0+1
   country_code_picker: ^2.0.2
   cached_network_image: ^3.2.1
-#  google_sign_in: ^5.2.1
-#  flutter_facebook_auth: ^3.5.7
+  #  google_sign_in: ^5.2.1
+  #  flutter_facebook_auth: ^3.5.7
   photo_view: ^0.14.0
   image_compression_flutter: ^1.0.2
   dotted_border: ^2.0.0+1

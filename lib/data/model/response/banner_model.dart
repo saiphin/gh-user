@@ -1,6 +1,6 @@
-import 'package:sixam_mart/data/model/response/basic_campaign_model.dart';
-import 'package:sixam_mart/data/model/response/item_model.dart';
-import 'package:sixam_mart/data/model/response/store_model.dart';
+import 'package:givepo/data/model/response/basic_campaign_model.dart';
+import 'package:givepo/data/model/response/item_model.dart';
+import 'package:givepo/data/model/response/store_model.dart';
 
 class BannerModel {
   List<BasicCampaignModel> campaigns;
@@ -43,8 +43,7 @@ class Banner {
   Store store;
   Item item;
 
-  Banner(
-      {this.id, this.title, this.type, this.image, this.store, this.item});
+  Banner({this.id, this.title, this.type, this.image, this.store, this.item});
 
   Banner.fromJson(Map<String, dynamic> json) {
     id = json['id'];

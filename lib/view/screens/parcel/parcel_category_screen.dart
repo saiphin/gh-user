@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:sixam_mart/controller/auth_controller.dart';
-import 'package:sixam_mart/controller/parcel_controller.dart';
-import 'package:sixam_mart/controller/splash_controller.dart';
-import 'package:sixam_mart/controller/user_controller.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/view/base/custom_app_bar.dart';
-import 'package:sixam_mart/view/base/custom_image.dart';
-import 'package:sixam_mart/view/base/footer_view.dart';
-import 'package:sixam_mart/view/screens/home/web/module_widget.dart';
+import 'package:givepo/controller/auth_controller.dart';
+import 'package:givepo/controller/parcel_controller.dart';
+import 'package:givepo/controller/splash_controller.dart';
+import 'package:givepo/controller/user_controller.dart';
+import 'package:givepo/helper/responsive_helper.dart';
+import 'package:givepo/helper/route_helper.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/util/images.dart';
+import 'package:givepo/util/styles.dart';
+import 'package:givepo/view/base/custom_app_bar.dart';
+import 'package:givepo/view/base/custom_image.dart';
+import 'package:givepo/view/base/footer_view.dart';
+import 'package:givepo/view/screens/home/web/module_widget.dart';
 
 class ParcelCategoryScreen extends StatefulWidget {
   @override

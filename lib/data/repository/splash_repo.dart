@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:sixam_mart/data/api/api_client.dart';
-import 'package:sixam_mart/data/model/response/address_model.dart';
-import 'package:sixam_mart/data/model/response/module_model.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:givepo/data/api/api_client.dart';
+import 'package:givepo/data/model/response/address_model.dart';
+import 'package:givepo/data/model/response/module_model.dart';
+import 'package:givepo/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sixam_mart/util/html_type.dart';
+import 'package:givepo/util/html_type.dart';
 
 class SplashRepo {
   ApiClient apiClient;
@@ -19,35 +19,38 @@ class SplashRepo {
   }
 
   Future<ModuleModel> initSharedData() async {
-    if(!sharedPreferences.containsKey(AppConstants.THEME)) {
+    if (!sharedPreferences.containsKey(AppConstants.THEME)) {
       sharedPreferences.setBool(AppConstants.THEME, false);
     }
-    if(!sharedPreferences.containsKey(AppConstants.COUNTRY_CODE)) {
-      sharedPreferences.setString(AppConstants.COUNTRY_CODE, AppConstants.languages[0].countryCode);
+    if (!sharedPreferences.containsKey(AppConstants.COUNTRY_CODE)) {
+      sharedPreferences.setString(
+          AppConstants.COUNTRY_CODE, AppConstants.languages[0].countryCode);
     }
-    if(!sharedPreferences.containsKey(AppConstants.LANGUAGE_CODE)) {
-      sharedPreferences.setString(AppConstants.LANGUAGE_CODE, AppConstants.languages[0].languageCode);
+    if (!sharedPreferences.containsKey(AppConstants.LANGUAGE_CODE)) {
+      sharedPreferences.setString(
+          AppConstants.LANGUAGE_CODE, AppConstants.languages[0].languageCode);
     }
-    if(!sharedPreferences.containsKey(AppConstants.CART_LIST)) {
+    if (!sharedPreferences.containsKey(AppConstants.CART_LIST)) {
       sharedPreferences.setStringList(AppConstants.CART_LIST, []);
     }
-    if(!sharedPreferences.containsKey(AppConstants.SEARCH_HISTORY)) {
+    if (!sharedPreferences.containsKey(AppConstants.SEARCH_HISTORY)) {
       sharedPreferences.setStringList(AppConstants.SEARCH_HISTORY, []);
     }
-    if(!sharedPreferences.containsKey(AppConstants.NOTIFICATION)) {
+    if (!sharedPreferences.containsKey(AppConstants.NOTIFICATION)) {
       sharedPreferences.setBool(AppConstants.NOTIFICATION, true);
     }
-    if(!sharedPreferences.containsKey(AppConstants.INTRO)) {
+    if (!sharedPreferences.containsKey(AppConstants.INTRO)) {
       sharedPreferences.setBool(AppConstants.INTRO, true);
     }
-    if(!sharedPreferences.containsKey(AppConstants.NOTIFICATION_COUNT)) {
+    if (!sharedPreferences.containsKey(AppConstants.NOTIFICATION_COUNT)) {
       sharedPreferences.setInt(AppConstants.NOTIFICATION_COUNT, 0);
     }
     ModuleModel _module;
-    if(sharedPreferences.containsKey(AppConstants.MODULE_ID)) {
+    if (sharedPreferences.containsKey(AppConstants.MODULE_ID)) {
       try {
-        _module = ModuleModel.fromJson(jsonDecode(sharedPreferences.getString(AppConstants.MODULE_ID)));
-      }catch(e) {}
+        _module = ModuleModel.fromJson(
+            jsonDecode(sharedPreferences.getString(AppConstants.MODULE_ID)));
+      } catch (e) {}
     }
     return _module;
   }
@@ -63,11 +66,14 @@ class SplashRepo {
   Future<void> setStoreCategory(int storeCategoryID) async {
     AddressModel _addressModel;
     try {
-      _addressModel = AddressModel.fromJson(jsonDecode(sharedPreferences.getString(AppConstants.USER_ADDRESS)));
-    }catch(e) {}
+      _addressModel = AddressModel.fromJson(
+          jsonDecode(sharedPreferences.getString(AppConstants.USER_ADDRESS)));
+    } catch (e) {}
     apiClient.updateHeader(
-      sharedPreferences.getString(AppConstants.TOKEN), _addressModel == null ? null : _addressModel.zoneIds,
-      sharedPreferences.getString(AppConstants.LANGUAGE_CODE), storeCategoryID,
+      sharedPreferences.getString(AppConstants.TOKEN),
+      _addressModel == null ? null : _addressModel.zoneIds,
+      sharedPreferences.getString(AppConstants.LANGUAGE_CODE),
+      storeCategoryID,
     );
   }
 
@@ -78,33 +84,41 @@ class SplashRepo {
   Future<void> setModule(ModuleModel module) async {
     AddressModel _addressModel;
     try {
-      _addressModel = AddressModel.fromJson(jsonDecode(sharedPreferences.getString(AppConstants.USER_ADDRESS)));
-    }catch(e) {}
+      _addressModel = AddressModel.fromJson(
+          jsonDecode(sharedPreferences.getString(AppConstants.USER_ADDRESS)));
+    } catch (e) {}
     apiClient.updateHeader(
-      sharedPreferences.getString(AppConstants.TOKEN), _addressModel == null ? null : _addressModel.zoneIds,
-      sharedPreferences.getString(AppConstants.LANGUAGE_CODE), module != null ? module.id : null,
+      sharedPreferences.getString(AppConstants.TOKEN),
+      _addressModel == null ? null : _addressModel.zoneIds,
+      sharedPreferences.getString(AppConstants.LANGUAGE_CODE),
+      module != null ? module.id : null,
     );
-    if(module != null) {
-      await sharedPreferences.setString(AppConstants.MODULE_ID, jsonEncode(module.toJson()));
-    }else {
+    if (module != null) {
+      await sharedPreferences.setString(
+          AppConstants.MODULE_ID, jsonEncode(module.toJson()));
+    } else {
       await sharedPreferences.remove(AppConstants.MODULE_ID);
     }
   }
 
   ModuleModel getModule() {
     ModuleModel _module;
-    if(sharedPreferences.containsKey(AppConstants.MODULE_ID)) {
+    if (sharedPreferences.containsKey(AppConstants.MODULE_ID)) {
       try {
-        _module = ModuleModel.fromJson(jsonDecode(sharedPreferences.getString(AppConstants.MODULE_ID)));
-      }catch(e) {}
+        _module = ModuleModel.fromJson(
+            jsonDecode(sharedPreferences.getString(AppConstants.MODULE_ID)));
+      } catch (e) {}
     }
     return _module;
   }
 
   Future<Response> getHtmlText(HtmlType htmlType) async {
     return await apiClient.getData(
-      htmlType == HtmlType.TERMS_AND_CONDITION ? AppConstants.TERMS_AND_CONDITIONS_URI
-        : htmlType == HtmlType.PRIVACY_POLICY ? AppConstants.PRIVACY_POLICY_URI : AppConstants.ABOUT_US_URI,
+      htmlType == HtmlType.TERMS_AND_CONDITION
+          ? AppConstants.TERMS_AND_CONDITIONS_URI
+          : htmlType == HtmlType.PRIVACY_POLICY
+              ? AppConstants.PRIVACY_POLICY_URI
+              : AppConstants.ABOUT_US_URI,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
@@ -114,7 +128,7 @@ class SplashRepo {
   }
 
   Future<Response> subscribeEmail(String email) async {
-    return await apiClient.postData(AppConstants.SUBSCRIPTION_URI, {'email': email});
+    return await apiClient
+        .postData(AppConstants.SUBSCRIPTION_URI, {'email': email});
   }
-
 }

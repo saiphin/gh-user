@@ -1,6 +1,6 @@
-import 'package:sixam_mart/data/api/api_checker.dart';
-import 'package:sixam_mart/data/model/response/banner_model.dart';
-import 'package:sixam_mart/data/repository/banner_repo.dart';
+import 'package:givepo/data/api/api_checker.dart';
+import 'package:givepo/data/model/response/banner_model.dart';
+import 'package:givepo/data/repository/banner_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,9 +32,9 @@ class BannerController extends GetxController implements GetxService {
       });
       _bannerModel.banners.forEach((banner) {
         _featuredBannerList.add(banner.image);
-        if(banner.item != null) {
+        if (banner.item != null) {
           _featuredBannerDataList.add(banner.item);
-        }else {
+        } else {
           _featuredBannerDataList.add(banner.store);
         }
       });
@@ -45,7 +45,7 @@ class BannerController extends GetxController implements GetxService {
   }
 
   Future<void> getBannerList(bool reload) async {
-    if(_bannerImageList == null || reload) {
+    if (_bannerImageList == null || reload) {
       _bannerImageList = null;
       Response response = await bannerRepo.getBannerList();
       if (response.statusCode == 200) {
@@ -58,9 +58,9 @@ class BannerController extends GetxController implements GetxService {
         });
         _bannerModel.banners.forEach((banner) {
           _bannerImageList.add(banner.image);
-          if(banner.item != null) {
+          if (banner.item != null) {
             _bannerDataList.add(banner.item);
-          }else {
+          } else {
             _bannerDataList.add(banner.store);
           }
         });
@@ -73,7 +73,7 @@ class BannerController extends GetxController implements GetxService {
 
   void setCurrentIndex(int index, bool notify) {
     _currentIndex = index;
-    if(notify) {
+    if (notify) {
       update();
     }
   }

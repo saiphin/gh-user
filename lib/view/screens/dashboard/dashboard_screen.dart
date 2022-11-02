@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
-import 'package:sixam_mart/controller/auth_controller.dart';
-import 'package:sixam_mart/controller/order_controller.dart';
-import 'package:sixam_mart/controller/splash_controller.dart';
-import 'package:sixam_mart/data/model/response/order_model.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/view/base/cart_widget.dart';
-import 'package:sixam_mart/view/screens/cart/cart_screen.dart';
-import 'package:sixam_mart/view/screens/dashboard/widget/bottom_nav_item.dart';
-import 'package:sixam_mart/view/screens/favourite/favourite_screen.dart';
-import 'package:sixam_mart/view/screens/home/home_screen.dart';
-import 'package:sixam_mart/view/screens/menu/menu_screen.dart';
-import 'package:sixam_mart/view/screens/order/order_screen.dart';
+import 'package:givepo/controller/auth_controller.dart';
+import 'package:givepo/controller/order_controller.dart';
+import 'package:givepo/controller/splash_controller.dart';
+import 'package:givepo/data/model/response/order_model.dart';
+import 'package:givepo/helper/responsive_helper.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/view/base/cart_widget.dart';
+import 'package:givepo/view/screens/cart/cart_screen.dart';
+import 'package:givepo/view/screens/dashboard/widget/bottom_nav_item.dart';
+import 'package:givepo/view/screens/favourite/favourite_screen.dart';
+import 'package:givepo/view/screens/home/home_screen.dart';
+import 'package:givepo/view/screens/menu/menu_screen.dart';
+import 'package:givepo/view/screens/order/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

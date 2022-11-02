@@ -1,4 +1,4 @@
-import 'package:sixam_mart/data/model/response/item_model.dart';
+import 'package:givepo/data/model/response/item_model.dart';
 
 class CartModel {
   double _price;
@@ -13,16 +13,16 @@ class CartModel {
   Item _item;
 
   CartModel(
-        double price,
-        double discountedPrice,
-        List<Variation> variation,
-        double discountAmount,
-        int quantity,
-        List<AddOn> addOnIds,
-        List<AddOns> addOns,
-        bool isCampaign,
-        int stock,
-        Item item) {
+      double price,
+      double discountedPrice,
+      List<Variation> variation,
+      double discountAmount,
+      int quantity,
+      List<AddOn> addOnIds,
+      List<AddOns> addOns,
+      bool isCampaign,
+      int stock,
+      Item item) {
     this._price = price;
     this._discountedPrice = discountedPrice;
     this._variation = variation;

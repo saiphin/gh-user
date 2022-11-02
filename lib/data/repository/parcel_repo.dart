@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
-import 'package:sixam_mart/data/api/api_client.dart';
-import 'package:sixam_mart/util/app_constants.dart';
+import 'package:givepo/data/api/api_client.dart';
+import 'package:givepo/util/app_constants.dart';
 
 class ParcelRepo {
   final ApiClient apiClient;
@@ -12,7 +12,7 @@ class ParcelRepo {
   }
 
   Future<Response> getPlaceDetails(String placeID) async {
-    return await apiClient.getData('${AppConstants.PLACE_DETAILS_URI}?placeid=$placeID');
+    return await apiClient
+        .getData('${AppConstants.PLACE_DETAILS_URI}?placeid=$placeID');
   }
-
 }

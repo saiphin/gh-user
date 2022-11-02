@@ -1,10 +1,10 @@
-// import 'package:sixam_mart/controller/auth_controller.dart';
-// import 'package:sixam_mart/controller/splash_controller.dart';
-// import 'package:sixam_mart/data/model/body/social_log_in_body.dart';
-// import 'package:sixam_mart/util/dimensions.dart';
-// import 'package:sixam_mart/util/images.dart';
-// import 'package:sixam_mart/util/styles.dart';
-// import 'package:sixam_mart/view/base/custom_snackbar.dart';
+// import 'package:givepo/controller/auth_controller.dart';
+// import 'package:givepo/controller/splash_controller.dart';
+// import 'package:givepo/data/model/body/social_log_in_body.dart';
+// import 'package:givepo/util/dimensions.dart';
+// import 'package:givepo/util/images.dart';
+// import 'package:givepo/util/styles.dart';
+// import 'package:givepo/view/base/custom_snackbar.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 // import 'package:get/get.dart';

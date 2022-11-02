@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/controller/item_controller.dart';
-import 'package:sixam_mart/controller/splash_controller.dart';
-import 'package:sixam_mart/data/model/response/item_model.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/helper/route_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/view/base/custom_image.dart';
+import 'package:givepo/controller/item_controller.dart';
+import 'package:givepo/controller/splash_controller.dart';
+import 'package:givepo/data/model/response/item_model.dart';
+import 'package:givepo/helper/responsive_helper.dart';
+import 'package:givepo/helper/route_helper.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/view/base/custom_image.dart';
 
 class ItemImageView extends StatelessWidget {
   final Item item;
@@ -22,8 +22,12 @@ class ItemImageView extends StatelessWidget {
 
     return GetBuilder<ItemController>(
       builder: (itemController) {
-        String _baseUrl = item.availableDateStarts == null ? Get.find<SplashController>().
-            configModel.baseUrls.itemImageUrl : Get.find<SplashController>().configModel.baseUrls.campaignImageUrl;
+        String _baseUrl = item.availableDateStarts == null
+            ? Get.find<SplashController>().configModel.baseUrls.itemImageUrl
+            : Get.find<SplashController>()
+                .configModel
+                .baseUrls
+                .campaignImageUrl;
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -34,7 +38,9 @@ class ItemImageView extends StatelessWidget {
               ),
               child: Stack(children: [
                 SizedBox(
-                  height: ResponsiveHelper.isDesktop(context)? 350: MediaQuery.of(context).size.width * 0.7,
+                  height: ResponsiveHelper.isDesktop(context)
+                      ? 350
+                      : MediaQuery.of(context).size.width * 0.7,
                   child: PageView.builder(
                     controller: _controller,
                     itemCount: _imageList.length,
@@ -54,16 +60,19 @@ class ItemImageView extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 0, right: 0, bottom: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
+                    padding:
+                        EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: _indicators(context, itemController, _imageList),
+                      children:
+                          _indicators(context, itemController, _imageList),
                     ),
                   ),
                 ),
-
               ]),
             ),
           ],
@@ -72,16 +81,18 @@ class ItemImageView extends StatelessWidget {
     );
   }
 
-  List<Widget> _indicators(BuildContext context, ItemController itemController, List<String> _imageList) {
+  List<Widget> _indicators(BuildContext context, ItemController itemController,
+      List<String> _imageList) {
     List<Widget> indicators = [];
     for (int index = 0; index < _imageList.length; index++) {
       indicators.add(TabPageSelectorIndicator(
-        backgroundColor: index == itemController.imageSliderIndex ? Theme.of(context).primaryColor : Colors.white,
+        backgroundColor: index == itemController.imageSliderIndex
+            ? Theme.of(context).primaryColor
+            : Colors.white,
         borderColor: Colors.white,
         size: 10,
       ));
     }
     return indicators;
   }
-
 }

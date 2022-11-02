@@ -1,16 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sixam_mart/controller/location_controller.dart';
-import 'package:sixam_mart/controller/order_controller.dart';
-import 'package:sixam_mart/data/api/api_checker.dart';
-import 'package:sixam_mart/data/model/response/address_model.dart';
-import 'package:sixam_mart/data/model/response/parcel_category_model.dart';
-import 'package:sixam_mart/data/model/response/place_details_model.dart';
-import 'package:sixam_mart/data/model/response/zone_response_model.dart';
-import 'package:sixam_mart/data/repository/parcel_repo.dart';
-import 'package:sixam_mart/view/base/custom_snackbar.dart';
+import 'package:givepo/controller/location_controller.dart';
+import 'package:givepo/controller/order_controller.dart';
+import 'package:givepo/data/api/api_checker.dart';
+import 'package:givepo/data/model/response/address_model.dart';
+import 'package:givepo/data/model/response/parcel_category_model.dart';
+import 'package:givepo/data/model/response/place_details_model.dart';
+import 'package:givepo/data/model/response/zone_response_model.dart';
+import 'package:givepo/data/repository/parcel_repo.dart';
+import 'package:givepo/view/base/custom_snackbar.dart';
 
 class ParcelController extends GetxController implements GetxService {
   final ParcelRepo parcelRepo;
@@ -40,10 +39,11 @@ class ParcelController extends GetxController implements GetxService {
 
   Future<void> getParcelCategoryList() async {
     Response response = await parcelRepo.getParcelCategory();
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       _parcelCategoryList = [];
-      response.body.forEach((parcel) => _parcelCategoryList.add(ParcelCategoryModel.fromJson(parcel)));
-    }else {
+      response.body.forEach((parcel) =>
+          _parcelCategoryList.add(ParcelCategoryModel.fromJson(parcel)));
+    } else {
       ApiChecker.checkApi(response);
     }
     update();
@@ -51,7 +51,7 @@ class ParcelController extends GetxController implements GetxService {
 
   void setPickupAddress(AddressModel addressModel, bool notify) {
     _pickupAddress = addressModel;
-    if(notify) {
+    if (notify) {
       update();
     }
   }
@@ -61,30 +61,42 @@ class ParcelController extends GetxController implements GetxService {
     update();
   }
 
-  void setLocationFromPlace(String placeID, String address, bool isPickedUp) async {
+  void setLocationFromPlace(
+      String placeID, String address, bool isPickedUp) async {
     Response response = await parcelRepo.getPlaceDetails(placeID);
-    if(response.statusCode == 200) {
-      PlaceDetailsModel _placeDetails = PlaceDetailsModel.fromJson(response.body);
-      if(_placeDetails.status == 'OK') {
+    if (response.statusCode == 200) {
+      PlaceDetailsModel _placeDetails =
+          PlaceDetailsModel.fromJson(response.body);
+      if (_placeDetails.status == 'OK') {
         AddressModel _address = AddressModel(
-          address: address, addressType: 'others', latitude: _placeDetails.result.geometry.location.lat.toString(),
+          address: address,
+          addressType: 'others',
+          latitude: _placeDetails.result.geometry.location.lat.toString(),
           longitude: _placeDetails.result.geometry.location.lng.toString(),
-          contactPersonName: Get.find<LocationController>().getUserAddress().contactPersonName,
-          contactPersonNumber: Get.find<LocationController>().getUserAddress().contactPersonNumber,
+          contactPersonName:
+              Get.find<LocationController>().getUserAddress().contactPersonName,
+          contactPersonNumber: Get.find<LocationController>()
+              .getUserAddress()
+              .contactPersonNumber,
         );
-        ZoneResponseModel _response = await Get.find<LocationController>().getZone(_address.latitude, _address.longitude, false);
+        ZoneResponseModel _response = await Get.find<LocationController>()
+            .getZone(_address.latitude, _address.longitude, false);
         if (_response.isSuccess) {
-          if(Get.find<LocationController>().getUserAddress().zoneIds.contains(_response.zoneIds[0])) {
-            _address.zoneId =  _response.zoneIds[0];
+          if (Get.find<LocationController>()
+              .getUserAddress()
+              .zoneIds
+              .contains(_response.zoneIds[0])) {
+            _address.zoneId = _response.zoneIds[0];
             _address.zoneIds = [];
             _address.zoneIds.addAll(_response.zoneIds);
-            if(isPickedUp) {
+            if (isPickedUp) {
               setPickupAddress(_address, true);
-            }else {
+            } else {
               setDestinationAddress(_address);
             }
-          }else {
-            showCustomSnackBar('your_selected_location_is_from_different_zone_store'.tr);
+          } else {
+            showCustomSnackBar(
+                'your_selected_location_is_from_different_zone_store'.tr);
           }
         } else {
           showCustomSnackBar(_response.message);
@@ -95,40 +107,43 @@ class ParcelController extends GetxController implements GetxService {
 
   void setIsPickedUp(bool isPickedUp, bool notify) {
     _isPickedUp = isPickedUp;
-    if(notify) {
+    if (notify) {
       update();
     }
   }
 
   void setIsSender(bool sender, bool notify) {
     _isSender = sender;
-    if(notify) {
+    if (notify) {
       update();
     }
   }
 
-  void getDistance(AddressModel pickedUpAddress, AddressModel destinationAddress) async {
+  void getDistance(
+      AddressModel pickedUpAddress, AddressModel destinationAddress) async {
     _distance = -1;
     _distance = await Get.find<OrderController>().getDistanceInKM(
-      LatLng(double.parse(pickedUpAddress.latitude), double.parse(pickedUpAddress.longitude)),
-      LatLng(double.parse(destinationAddress.latitude), double.parse(destinationAddress.longitude)),
+      LatLng(double.parse(pickedUpAddress.latitude),
+          double.parse(pickedUpAddress.longitude)),
+      LatLng(double.parse(destinationAddress.latitude),
+          double.parse(destinationAddress.longitude)),
     );
     update();
   }
 
   void setPayerIndex(int index, bool notify) {
     _payerIndex = index;
-    if(_payerIndex == 1) {
+    if (_payerIndex == 1) {
       _paymentIndex = 0;
     }
-    if(notify) {
+    if (notify) {
       update();
     }
   }
 
   void setPaymentIndex(int index, bool notify) {
     _paymentIndex = index;
-    if(notify) {
+    if (notify) {
       update();
     }
   }
@@ -137,5 +152,4 @@ class ParcelController extends GetxController implements GetxService {
     _isLoading = isEnable;
     update();
   }
-
 }

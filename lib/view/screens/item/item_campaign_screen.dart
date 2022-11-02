@@ -1,11 +1,11 @@
-import 'package:sixam_mart/controller/campaign_controller.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/view/base/custom_app_bar.dart';
-import 'package:sixam_mart/view/base/footer_view.dart';
-import 'package:sixam_mart/view/base/item_view.dart';
+import 'package:givepo/controller/campaign_controller.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/view/base/custom_app_bar.dart';
+import 'package:givepo/view/base/footer_view.dart';
+import 'package:givepo/view/base/item_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sixam_mart/view/base/menu_drawer.dart';
+import 'package:givepo/view/base/menu_drawer.dart';
 
 class ItemCampaignScreen extends StatefulWidget {
   @override
@@ -13,7 +13,6 @@ class ItemCampaignScreen extends StatefulWidget {
 }
 
 class _ItemCampaignScreenState extends State<ItemCampaignScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -26,12 +25,18 @@ class _ItemCampaignScreenState extends State<ItemCampaignScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: 'campaigns'.tr),
       endDrawer: MenuDrawer(),
-      body: Scrollbar(child: SingleChildScrollView(child: FooterView(child: SizedBox(
+      body: Scrollbar(
+          child: SingleChildScrollView(
+              child: FooterView(
+                  child: SizedBox(
         width: Dimensions.WEB_MAX_WIDTH,
         child: GetBuilder<CampaignController>(builder: (campController) {
           return ItemsView(
-            isStore: false, items: campController.itemCampaignList, stores: null,
-            isCampaign: true, noDataText: 'no_campaign_found'.tr,
+            isStore: false,
+            items: campController.itemCampaignList,
+            stores: null,
+            isCampaign: true,
+            noDataText: 'no_campaign_found'.tr,
           );
         }),
       )))),

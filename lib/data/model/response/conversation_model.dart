@@ -1,5 +1,4 @@
-
-import 'package:sixam_mart/data/model/response/chat_model.dart';
+import 'package:givepo/data/model/response/chat_model.dart';
 
 class ConversationsModel {
   int totalSize;
@@ -7,7 +6,8 @@ class ConversationsModel {
   int offset;
   List<Conversation> conversations;
 
-  ConversationsModel({this.totalSize, this.limit, this.offset, this.conversations});
+  ConversationsModel(
+      {this.totalSize, this.limit, this.offset, this.conversations});
 
   ConversationsModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
@@ -27,11 +27,11 @@ class ConversationsModel {
     data['limit'] = this.limit;
     data['offset'] = this.offset;
     if (this.conversations != null) {
-      data['conversations'] = this.conversations.map((v) => v.toJson()).toList();
+      data['conversations'] =
+          this.conversations.map((v) => v.toJson()).toList();
     }
     return data;
   }
-
 }
 
 class Conversation {
@@ -49,21 +49,21 @@ class Conversation {
   User receiver;
   Message lastMessage;
 
-  Conversation(
-      {this.id,
-        this.senderId,
-        this.senderType,
-        this.receiverId,
-        this.receiverType,
-        this.unreadMessageCount,
-        this.lastMessageId,
-        this.lastMessageTime,
-        this.createdAt,
-        this.updatedAt,
-        this.sender,
-        this.receiver,
-        this.lastMessage,
-      });
+  Conversation({
+    this.id,
+    this.senderId,
+    this.senderType,
+    this.receiverId,
+    this.receiverType,
+    this.unreadMessageCount,
+    this.lastMessageId,
+    this.lastMessageTime,
+    this.createdAt,
+    this.updatedAt,
+    this.sender,
+    this.receiver,
+    this.lastMessage,
+  });
 
   Conversation.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -77,8 +77,11 @@ class Conversation {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     sender = json['sender'] != null ? new User.fromJson(json['sender']) : null;
-    receiver = json['receiver'] != null ? new User.fromJson(json['receiver']) : null;
-    lastMessage = json['last_message'] != null ? new Message.fromJson(json['last_message']) : null;
+    receiver =
+        json['receiver'] != null ? new User.fromJson(json['receiver']) : null;
+    lastMessage = json['last_message'] != null
+        ? new Message.fromJson(json['last_message'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -118,13 +121,13 @@ class User {
 
   User(
       {this.id,
-        this.fName,
-        this.lName,
-        this.phone,
-        this.email,
-        this.image,
-        this.createdAt,
-        this.updatedAt});
+      this.fName,
+      this.lName,
+      this.phone,
+      this.email,
+      this.image,
+      this.createdAt,
+      this.updatedAt});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];

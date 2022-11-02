@@ -1,6 +1,6 @@
-import 'package:sixam_mart/data/model/response/address_model.dart';
-import 'package:sixam_mart/data/model/response/parcel_category_model.dart';
-import 'package:sixam_mart/data/model/response/store_model.dart';
+import 'package:givepo/data/model/response/address_model.dart';
+import 'package:givepo/data/model/response/parcel_category_model.dart';
+import 'package:givepo/data/model/response/store_model.dart';
 
 class PaginatedOrderModel {
   int totalSize;
@@ -13,7 +13,10 @@ class PaginatedOrderModel {
   PaginatedOrderModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
     limit = json['limit'].toString();
-    offset = (json['offset'] != null && json['offset'].toString().trim().isNotEmpty) ? int.parse(json['offset'].toString()) : null;
+    offset =
+        (json['offset'] != null && json['offset'].toString().trim().isNotEmpty)
+            ? int.parse(json['offset'].toString())
+            : null;
     if (json['orders'] != null) {
       orders = [];
       json['orders'].forEach((v) {
@@ -32,7 +35,6 @@ class PaginatedOrderModel {
     }
     return data;
   }
-
 }
 
 class OrderModel {
@@ -77,48 +79,48 @@ class OrderModel {
   ParcelCategoryModel parcelCategory;
   double dmTips;
 
-  OrderModel(
-      {this.id,
-        this.userId,
-        this.orderAmount,
-        this.couponDiscountAmount,
-        this.couponDiscountTitle,
-        this.paymentStatus,
-        this.orderStatus,
-        this.totalTaxAmount,
-        this.paymentMethod,
-        this.couponCode,
-        this.orderNote,
-        this.orderType,
-        this.createdAt,
-        this.updatedAt,
-        this.deliveryCharge,
-        this.scheduleAt,
-        this.otp,
-        this.pending,
-        this.accepted,
-        this.confirmed,
-        this.processing,
-        this.handover,
-        this.pickedUp,
-        this.delivered,
-        this.canceled,
-        this.refundRequested,
-        this.refunded,
-        this.scheduled,
-        this.storeDiscountAmount,
-        this.failed,
-        this.detailsCount,
-        this.chargePayer,
-        this.moduleType,
-        this.deliveryMan,
-        this.deliveryAddress,
-        this.receiverDetails,
-        this.parcelCategory,
-        this.store,
-        this.orderAttachment,
-        this.dmTips,
-      });
+  OrderModel({
+    this.id,
+    this.userId,
+    this.orderAmount,
+    this.couponDiscountAmount,
+    this.couponDiscountTitle,
+    this.paymentStatus,
+    this.orderStatus,
+    this.totalTaxAmount,
+    this.paymentMethod,
+    this.couponCode,
+    this.orderNote,
+    this.orderType,
+    this.createdAt,
+    this.updatedAt,
+    this.deliveryCharge,
+    this.scheduleAt,
+    this.otp,
+    this.pending,
+    this.accepted,
+    this.confirmed,
+    this.processing,
+    this.handover,
+    this.pickedUp,
+    this.delivered,
+    this.canceled,
+    this.refundRequested,
+    this.refunded,
+    this.scheduled,
+    this.storeDiscountAmount,
+    this.failed,
+    this.detailsCount,
+    this.chargePayer,
+    this.moduleType,
+    this.deliveryMan,
+    this.deliveryAddress,
+    this.receiverDetails,
+    this.parcelCategory,
+    this.store,
+    this.orderAttachment,
+    this.dmTips,
+  });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -155,11 +157,19 @@ class OrderModel {
     orderAttachment = json['order_attachment'];
     chargePayer = json['charge_payer'];
     moduleType = json['module_type'];
-    deliveryMan = json['delivery_man'] != null ? new DeliveryMan.fromJson(json['delivery_man']) : null;
+    deliveryMan = json['delivery_man'] != null
+        ? new DeliveryMan.fromJson(json['delivery_man'])
+        : null;
     store = json['store'] != null ? new Store.fromJson(json['store']) : null;
-    deliveryAddress = json['delivery_address'] != null ? new AddressModel.fromJson(json['delivery_address']) : null;
-    receiverDetails = json['receiver_details'] != null ? new AddressModel.fromJson(json['receiver_details']) : null;
-    parcelCategory = json['parcel_category'] != null ? new ParcelCategoryModel.fromJson(json['parcel_category']) : null;
+    deliveryAddress = json['delivery_address'] != null
+        ? new AddressModel.fromJson(json['delivery_address'])
+        : null;
+    receiverDetails = json['receiver_details'] != null
+        ? new AddressModel.fromJson(json['receiver_details'])
+        : null;
+    parcelCategory = json['parcel_category'] != null
+        ? new ParcelCategoryModel.fromJson(json['parcel_category'])
+        : null;
     dmTips = json['dm_tips'].toDouble();
   }
 
@@ -237,20 +247,19 @@ class DeliveryMan {
 
   DeliveryMan(
       {this.id,
-        this.fName,
-        this.lName,
-        this.phone,
-        this.email,
-        this.image,
-        this.zoneId,
-        this.active,
-        this.available,
-        this.avgRating,
-        this.ratingCount,
-        this.lat,
-        this.lng,
-        this.location
-      });
+      this.fName,
+      this.lName,
+      this.phone,
+      this.email,
+      this.image,
+      this.zoneId,
+      this.active,
+      this.available,
+      this.avgRating,
+      this.ratingCount,
+      this.lat,
+      this.lng,
+      this.location});
 
   DeliveryMan.fromJson(Map<String, dynamic> json) {
     id = json['id'];

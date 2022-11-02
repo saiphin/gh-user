@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:sixam_mart/controller/auth_controller.dart';
-import 'package:sixam_mart/controller/user_controller.dart';
-import 'package:sixam_mart/controller/wallet_controller.dart';
-import 'package:sixam_mart/helper/price_converter.dart';
-import 'package:sixam_mart/helper/responsive_helper.dart';
-import 'package:sixam_mart/util/dimensions.dart';
-import 'package:sixam_mart/util/images.dart';
-import 'package:sixam_mart/util/styles.dart';
-import 'package:sixam_mart/view/base/custom_app_bar.dart';
-import 'package:sixam_mart/view/base/footer_view.dart';
-import 'package:sixam_mart/view/base/menu_drawer.dart';
-import 'package:sixam_mart/view/base/no_data_screen.dart';
-import 'package:sixam_mart/view/base/not_logged_in_screen.dart';
-import 'package:sixam_mart/view/base/title_widget.dart';
-import 'package:sixam_mart/view/screens/wallet/widget/history_item.dart';
-import 'package:sixam_mart/view/screens/wallet/widget/wallet_bottom_sheet.dart';
+import 'package:givepo/controller/auth_controller.dart';
+import 'package:givepo/controller/user_controller.dart';
+import 'package:givepo/controller/wallet_controller.dart';
+import 'package:givepo/helper/price_converter.dart';
+import 'package:givepo/helper/responsive_helper.dart';
+import 'package:givepo/util/dimensions.dart';
+import 'package:givepo/util/images.dart';
+import 'package:givepo/util/styles.dart';
+import 'package:givepo/view/base/custom_app_bar.dart';
+import 'package:givepo/view/base/footer_view.dart';
+import 'package:givepo/view/base/menu_drawer.dart';
+import 'package:givepo/view/base/no_data_screen.dart';
+import 'package:givepo/view/base/not_logged_in_screen.dart';
+import 'package:givepo/view/base/title_widget.dart';
+import 'package:givepo/view/screens/wallet/widget/history_item.dart';
+import 'package:givepo/view/screens/wallet/widget/wallet_bottom_sheet.dart';
 
 class WalletScreen extends StatefulWidget {
   final bool fromWallet;
